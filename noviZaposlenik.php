@@ -14,13 +14,13 @@
 	?>
     <form method="POST">
         <label>Naziv poduzeća kontakta:<br/>
-        <select name="nazivPoduzeca">
+        <select name="poduzeceId">
 		<?php		
-		$query = "SELECT nazivPoduzeca FROM poduzeca ORDER BY nazivPoduzeca";
+		$query = "SELECT id, nazivPoduzeca FROM poduzeca ORDER BY nazivPoduzeca";
 		$result = mysqli_query($conn, $query) or die ("Error");		
 		while ($row = mysqli_fetch_array($result))
 		{
-			echo "<option value='".$row['nazivPoduzeca']."'>".$row['nazivPoduzeca']."</option>";
+			echo "<option value='".$row['id']."'>".$row['nazivPoduzeca']."</option>";
 		}
 		?>        
 		</select>
@@ -49,11 +49,12 @@
 	echo '<p><a href="../administracija-zaposlenika">Povratak na početnu</a></p>';
 
     if (isset($_POST["submit"])) {
-		$naziv = $_POST["nazivPoduzeca"];
+
         $ime = $_POST["imeZaposlenika"];
         $prezime = $_POST["prezimeZaposlenika"];
         $email = $_POST["email"];
         $kontakt = $_POST["kontaktBr"];
+        $poduzeceId = $_POST["poduzeceId"];
 			
         $query = "SELECT ime, prezime FROM zaposlenici WHERE ime = '$ime' AND prezime = '$prezime';";
         $result = mysqli_query($conn, $query) or die ("Error");
@@ -61,11 +62,11 @@
         if(mysqli_num_rows($result) >= 1)
             echo "Zaposlenik sa unesenim imenom i prezimenom već postoji!";
         else {
-            $sql = "INSERT INTO zaposlenici (nazivPoduzeca, ime, prezime, email, kontaktBr) values (?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO zaposlenici (ime, prezime, email, kontaktBr, poduzeceId) values (?, ?, ?, ?, ?)";
             $stmt = mysqli_stmt_init($conn);
 
             if (mysqli_stmt_prepare($stmt, $sql)) {
-                mysqli_stmt_bind_param($stmt, 'sssss', $naziv, $ime, $prezime, $email, $kontakt);
+                mysqli_stmt_bind_param($stmt, 'ssssi', $ime, $prezime, $email, $kontakt, $poduzeceId);
                 mysqli_stmt_execute($stmt);
                 echo "Uspješan unos!";
             }

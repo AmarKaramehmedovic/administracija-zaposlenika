@@ -45,7 +45,7 @@
 				echo '</div>';
 			?>
 			<form style="margin-top:-5%;" action="index.php" method="GET" align="center">
-				<input id="acSubject" type="text" name="acSubject" placeholder="Traži poduzeće" size="25" autofocus>
+				<input id="poduzece" type="text" name="poduzece" placeholder="Traži poduzeće" size="25" autofocus>
 			</form>
 		</div>
 		
@@ -53,8 +53,8 @@
 		
         <table id="table1" align="center">   
             <?php
-				if (!empty($_GET['acSubject'])) {
-					$input = $_GET['acSubject'];
+				if (!empty($_GET['poduzece'])) {
+					$input = $_GET['poduzece'];
 					
 					//table zaposlenici
 					echo "
@@ -68,22 +68,22 @@
 							<th>Email</th>
 							<th>Kontakt broj</th>
 						</tr>";
-					
-					$sql= "SELECT *
+
+					$sql= "SELECT *, zaposlenici.kontaktBr AS kontaktBrZ
 					FROM zaposlenici
-					WHERE nazivPoduzeca LIKE '%$input%'
-					ORDER BY nazivPoduzeca";	
+					LEFT JOIN poduzeca ON zaposlenici.poduzeceId = poduzeca.id
+					WHERE poduzeca.nazivPoduzeca LIKE '%$input%' ";
 					
 					$result = mysqli_query($conn, $sql) or die("Error"); 
 					while($row = mysqli_fetch_array($result)){
 						echo "<tr>";
 						echo "<td align='left' width='300'>
-								<a name='click' href='?acSubject=".$row["nazivPoduzeca"]."'>".$row["nazivPoduzeca"]."</a>
+								<a name='click' href='?poduzece=".$row["nazivPoduzeca"]."'>".$row["nazivPoduzeca"]."</a>
 							</td>";
 						echo "<td align='center'>" . $row["ime"] . "</td>";
 						echo "<td align='center'>" . $row["prezime"] . "</td>";
 						echo "<td align='center'>" . $row["email"] . "</td>";
-						echo "<td align='center'>" . $row["kontaktBr"] . "</td>";			
+						echo "<td align='center'>" . $row["kontaktBrZ"] . "</td>";			
 						echo "</tr>";               
 					}
 				}else{
@@ -105,7 +105,7 @@
 					while($row = mysqli_fetch_array($result)){
 						echo "<tr>";
 						echo "<td align='left' width='300'>
-								<a name='click' href='?acSubject=".$row["nazivPoduzeca"]."'>".$row["nazivPoduzeca"]."</a>
+								<a name='click' href='?poduzece=".$row["nazivPoduzeca"]."'>".$row["nazivPoduzeca"]."</a>
 							</td>";
 						echo "<td align='center'>" . $row["kontaktBr"] . "</td>";			
 						echo "</tr>";               
