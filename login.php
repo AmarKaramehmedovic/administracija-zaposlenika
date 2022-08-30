@@ -1,79 +1,102 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-	<style>
-		
-	</style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Administracija zaposlenika - Prijava</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+	<link rel="stylesheet" media="screen" href="style.css">
+	<link rel="shortcut icon" href="slike/favicon.ico" />
 </head>
-<body align="center">
-	<div class="header" style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif;">
-		<h1><a href="/administracija-zaposlenika">Administracija zaposlenika:</a></h1>
-		<form method="POST">
-			<label>Korisničko ime:<br>
-				<input name="username" type="text" required>
-			</label> <br>
-
-			<label>Lozinka:<br>
-				<input name="password" type="password" required>
-			</label> <br><br>
-
-			<input name="submit" type="submit" value="Prijava">
-		</form>
-	</div>
-
-    <?php
-		require_once "connection.php";
-		
-		session_start();
-		if(isset($_SESSION["loggedIn"])){
-			if($_SESSION["loggedIn"] == true){
-				header("Location: ../administracija-zaposlenika");
-				exit;
-			}
-		}
-
-		if (isset($_POST["submit"])) {
-
-			$username = $_POST["username"];
-			$password = $_POST["password"];
-				
-			$query = "SELECT korisnicko_ime, lozinka FROM korisnici WHERE korisnicko_ime = ?;";
-			$stmt = mysqli_stmt_init($conn);
-			if (mysqli_stmt_prepare($stmt, $query)) {
-				mysqli_stmt_bind_param($stmt, 's', $username);
-				mysqli_stmt_execute($stmt);
-				mysqli_stmt_store_result($stmt);
-				mysqli_stmt_bind_result($stmt, $korisnicko_ime, $hash);
-				mysqli_stmt_fetch($stmt);
-				
-				if (password_verify($password, $hash)) {
-					echo "Prijava je uspjela";
-						
-					$queryRow = "SELECT korisnicko_ime, dozvola FROM korisnici WHERE korisnicko_ime = '$username';";
-					$result = mysqli_query($conn, $queryRow) or die("Error");           
-					$row = mysqli_fetch_array($result);
-						
-					$dozvola = $row["dozvola"];
-					$username = $row["korisnicko_ime"];
-						
-					$_SESSION["loggedIn"] = true;
-					$_SESSION["username"] = $username;
-					$_SESSION["dozvola"] = $dozvola;
-						
+<style>
+	html, body {
+		height: 100%;
+	}
+	.main {
+		height: 60%;
+		width: 100%;
+		display: table;
+	}
+	.wrapper {
+		display: table-cell;
+		height: 100%;
+		vertical-align: middle;
+	}
+</style>
+<body class="main" style="text-align:center;">
+	<div class="wrapper">
+		<?php
+			session_start();
+			if(isset($_SESSION["loggedIn"])){
+				if($_SESSION["loggedIn"] == true){
 					header("Location: ../administracija-zaposlenika");
 					exit;
-				} else {
-					echo "Unijeli ste pogrešno korisničko ime ili lozinku";
 				}
-
-				mysqli_stmt_close($stmt);
 			}
-		}
+			require_once "connection.php";
+		?>
+		<div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; text-align:center; margin-top:20px;">
+			<h2><a style="text-decoration:none;" href="/administracija-zaposlenika">Administracija zaposlenika</a></h2>
+			<form method="POST" style="margin-top:30px;">
+				<label>Korisničko ime:
+					<input class="form-control" name="username" type="text" required>
+				</label> <br/>
 
-		mysqli_close($conn);
+				<label>Lozinka:
+					<input class="form-control" name="password" type="password" required>
+				</label> <br/><br/>
 
-    ?>
+				<input class="btn btn-primary" name="submit" type="submit" value="Prijava">
+			</form>
+		</div>
 
+		<?php
+
+			if (isset($_POST["submit"])) {
+
+				$username = $_POST["username"];
+				$password = $_POST["password"];
+					
+				$query = "SELECT korisnicko_ime, lozinka FROM korisnici WHERE korisnicko_ime = ?;";
+				$stmt = mysqli_stmt_init($conn);
+				if (mysqli_stmt_prepare($stmt, $query)) {
+					mysqli_stmt_bind_param($stmt, 's', $username);
+					mysqli_stmt_execute($stmt);
+					mysqli_stmt_store_result($stmt);
+					mysqli_stmt_bind_result($stmt, $korisnicko_ime, $hash);
+					mysqli_stmt_fetch($stmt);
+					
+					if (password_verify($password, $hash)) {
+						echo "Prijava je uspjela";
+							
+						$queryRow = "SELECT korisnicko_ime, dozvola FROM korisnici WHERE korisnicko_ime = '$username';";
+						$result = mysqli_query($conn, $queryRow) or die("Error");           
+						$row = mysqli_fetch_array($result);
+							
+						$dozvola = $row["dozvola"];
+						$username = $row["korisnicko_ime"];
+							
+						$_SESSION["loggedIn"] = true;
+						$_SESSION["username"] = $username;
+						$_SESSION["dozvola"] = $dozvola;
+							
+						header("Location: ../administracija-zaposlenika");
+						exit;
+					} else {
+						echo "<span style='color:red;'>Unijeli ste pogrešno korisničko ime ili lozinku</span>";
+					}
+
+					mysqli_stmt_close($stmt);
+				}
+			}
+
+			include "footer.php";
+			mysqli_close($conn); 
+		?>
+	</div>
+
+	
+
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>

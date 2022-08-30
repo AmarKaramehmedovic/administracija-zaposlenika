@@ -2,71 +2,96 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administracija zaposlenika - Unos poduzeća</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-gH2yIJqKdNHPEq0n4Mqa/HGKIhSkIHeL5AyhkYV8i59U5AR6csBvApHHNl/vI1Bx" crossorigin="anonymous">
+    <link rel="stylesheet" media="screen" href="style.css">
+    <link rel="shortcut icon" href="slike/favicon.ico" />
 </head>
+
 <body>
-    <form method="POST">
-        <label>Naziv poduzeća:<br/>
-        <input name="nazivPoduzeca" type="text" required>
-        </label><br/>
-
-        <label>Adresa:<br/>
-        <input name="adresaPoduzeca" type="text">
-        </label><br/>
-		
-		<label>Poštanski broj:<br/>
-        <input name="postBr" type="number">
-        </label><br/>
-		
-		<label>Mjesto:<br/>
-        <input name="mjesto" type="text">
-        </label><br/>
-		
-		<label>Kontakt broj:<br/>
-		<input type="tel" name="kontaktBr" pattern="[0-9\s\/\-\+]*">
-        </label><br/><br/>
-		
-        <input name="submit" id="submit" type="submit" value="Unesi">
-    </form>
-
     <?php
-	echo '<p><a href="../administracija-zaposlenika">Povratak na početnu</a></p>';
-	
-	require_once "connection.php";
+        session_start();
+        if (!isset($_SESSION["loggedIn"]) || ($_SESSION["loggedIn"] != true)) {
+            header("Location: login.php");
+            exit;
+        }
+
+        $username = $_SESSION["username"];
+        $dozvola = $_SESSION["dozvola"];
+            
+        include "header.php";
+        // include "footer.php";
+        require_once "connection.php";
+    ?>
     
-	session_start();
-	if(!isset($_SESSION["loggedIn"])){
-		header("Location: login.php");
-		exit;
-	}
+    <div class="container-fluid" style="width: 850px;">
+        <form method="POST">
+            <div class="row">
+                <label class="col-8">Naziv poduzeća:
+                    <input class="form-control" name="nazivPoduzeca" type="text" required placeholder="Unesite naziv">
+                </label>
+            </div>
 
-    if (isset($_POST["submit"])) {
+            <div class="row">
+                <label class="col-4">Adresa:
+                    <input class="form-control" name="adresaPoduzeca" type="text" placeholder="Unesite adresu">
+                </label>
+                <label class="col-4">Poštanski broj:
+                    <input class="form-control" name="postBr" type="number" placeholder="Unesite poštanski broj">
+                </label>
+            </div>
 
-		$naziv = $_POST["nazivPoduzeca"];
-        $adresa = $_POST["adresaPoduzeca"];
-        $postBr = $_POST["postBr"];
-        $mjesto = $_POST["mjesto"];
-        $kontakt = $_POST["kontaktBr"];
-			
-        $query = "SELECT nazivPoduzeca FROM poduzeca WHERE nazivPoduzeca = '$naziv';";
-        $result = mysqli_query($conn, $query) or die ("Error");
+            <div class="row">
+                <label class="col-4">Mjesto:
+                    <input class="form-control" name="mjesto" type="text" placeholder="Unesite mjesto">
+                </label>
 
-        if(mysqli_num_rows($result) >= 1)
-            echo "Poduzece sa unesenim nazivom već postoji!";
-        else {
-            $sql = "INSERT INTO poduzeca (nazivPoduzeca, adresa, postBr, mjesto, kontaktBr) values (?, ?, ?, ?, ?)";
-            $stmt = mysqli_stmt_init($conn);
+                <label class="col-4">Kontakt broj:
+                    <input class="form-control" type="tel" name="kontaktBr" pattern="[0-9\s\/\-\+]*" placeholder="Unesite broj telefona">
+                </label>
+            </div>
 
-            if (mysqli_stmt_prepare($stmt, $sql)) {
-                mysqli_stmt_bind_param($stmt, 'ssiss', $naziv, $adresa, $postBr, $mjesto, $kontakt);
-                mysqli_stmt_execute($stmt);
-                echo "Uspješan unos!";
+            <div style="margin-top:20px">
+                <input class="btn btn-success" name="submit" id="submit" type="submit" value="Unesi">
+                <a class="btn btn-outline-secondary" style="margin-left:5px;" href="../administracija-zaposlenika">Povratak na početnu</a>
+            </div>
+        </form>
+
+        <?php
+
+        if (isset($_POST["submit"])) {
+
+            $naziv = $_POST["nazivPoduzeca"];
+            $adresa = $_POST["adresaPoduzeca"];
+            $postBr = $_POST["postBr"];
+            $mjesto = $_POST["mjesto"];
+            $kontakt = $_POST["kontaktBr"];
+
+            $query = "SELECT nazivPoduzeca FROM poduzeca WHERE nazivPoduzeca = '$naziv';";
+            $result = mysqli_query($conn, $query) or die("Error");
+
+            if (mysqli_num_rows($result) >= 1)
+                echo "Poduzece sa unesenim nazivom već postoji!";
+            else {
+                $sql = "INSERT INTO poduzeca (nazivPoduzeca, adresa, postBr, mjesto, kontaktBr) values (?, ?, ?, ?, ?)";
+                $stmt = mysqli_stmt_init($conn);
+
+                if (mysqli_stmt_prepare($stmt, $sql)) {
+                    mysqli_stmt_bind_param($stmt, 'ssiss', $naziv, $adresa, $postBr, $mjesto, $kontakt);
+                    mysqli_stmt_execute($stmt);
+                    echo "Uspješan unos!";
+                }
             }
         }
-    }
+        
+        mysqli_close($conn);
 
-    mysqli_close($conn);
+        ?>
+    </div>
+    
+    <?php include "footer.php"; ?>
 
-    ?>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>
 </html>
