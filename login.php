@@ -12,19 +12,9 @@
 	html, body {
 		height: 100%;
 	}
-	.main {
-		height: 60%;
-		width: 100%;
-		display: table;
-	}
-	.wrapper {
-		display: table-cell;
-		height: 100%;
-		vertical-align: middle;
-	}
 </style>
-<body class="main" style="text-align:center;">
-	<div class="wrapper">
+<body class="main-login" style="text-align:center;">
+	<div class="wrapper-login">
 		<?php
 			session_start();
 			if(isset($_SESSION["loggedIn"])){
@@ -35,7 +25,7 @@
 			}
 			require_once "connection.php";
 		?>
-		<div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; text-align:center; margin-top:20px;">
+		<div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; text-align:center; margin-top:20vh;">
 			<h2><a style="text-decoration:none;" href="/administracija-zaposlenika">Administracija zaposlenika</a></h2>
 			<form method="POST" style="margin-top:30px;">
 				<label>Korisničko ime:
@@ -48,6 +38,10 @@
 
 				<input class="btn btn-primary" name="submit" type="submit" value="Prijava">
 			</form>
+		</div>
+		<div class="footer" style="margin-top:45vh;">
+			<hr></hr>
+			<p>Web aplikacija za administraciju podataka zaposlenika poduzeća - Završni rad - Amar Karamehmedović</p>
 		</div>
 
 		<?php
@@ -70,7 +64,7 @@
 						echo "Prijava je uspjela";
 							
 						$queryRow = "SELECT korisnicko_ime, dozvola FROM korisnici WHERE korisnicko_ime = '$username';";
-						$result = mysqli_query($conn, $queryRow) or die("Error");           
+						$result = mysqli_query($conn, $queryRow) or die("Query Error");           
 						$row = mysqli_fetch_array($result);
 							
 						$dozvola = $row["dozvola"];
@@ -90,12 +84,14 @@
 				}
 			}
 
-			include "footer.php";
+			// echo "<div class='container-fluid' style='padding-top:27%;'>";
+			// 	echo "<div class='row'>";
+			// 		echo include "footer.php";
+			// 	echo "</div>";
+			// echo "</div>";
 			mysqli_close($conn); 
 		?>
 	</div>
-
-	
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
 </body>

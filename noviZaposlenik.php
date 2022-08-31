@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,23 +23,25 @@
         require_once "connection.php";
     ?>
     
-    <div class="container-fluid" style="width: 850px;">
+    <div class="container-fluid wrapper">
+    <h4 style="font-size: 1.6rem;">Unos zaposlenika</h4>
+    <br />
         <form method="POST">
             <div class="row">
                 <label class="col-8">Naziv poduzeća zaposlenika:
                     <select name="poduzeceId" class="form-select">
                         <?php
-                        $query = "SELECT id, nazivPoduzeca FROM poduzeca ORDER BY nazivPoduzeca";
-                        $result = mysqli_query($conn, $query) or die("Error");
-                        while ($row = mysqli_fetch_array($result)) {
-                            echo "<option value='" . $row['id'] . "'>" . $row['nazivPoduzeca'] . "</option>";
-                        }
+                            $query = "SELECT id, nazivPoduzeca FROM poduzeca ORDER BY nazivPoduzeca";
+                            $result = mysqli_query($conn, $query) or die("Query Error");
+                            while ($row = mysqli_fetch_array($result)) {
+                                echo "<option value='" . $row['id'] . "'>" . $row['nazivPoduzeca'] . "</option>";
+                            }
                         ?>
                     </select>
                 </label>
             </div>
 
-            <div class="row" style="margin-top:7px">
+            <div class="row form-spacing">
                 <label class="col-4">Ime:
                     <input class="form-control" name="imeZaposlenika" type="text" placeholder="Unesite ime">
                 </label>
@@ -49,7 +50,7 @@
                 </label>
             </div>
 
-            <div class="row" style="margin-top:7px">
+            <div class="row form-spacing">
                 <label class="col-4">Email:
                     <input class="form-control" name="email" type="email" placeholder="example@mail.com">
                 </label>
@@ -59,39 +60,39 @@
             </div>
 
             <div style="margin-top:20px">
-                <input class="btn btn-success" name="submit" id="submit" type="submit" value="Unesi">
+                <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Unesi">
                 <a class="btn btn-outline-secondary" style="margin-left:5px;" href="../administracija-zaposlenika">Povratak na početnu</a>
             </div>
         </form>
 
         <?php
-        if (isset($_POST["submit"])) {
+            if (isset($_POST["submit"])) {
 
-            $ime = $_POST["imeZaposlenika"];
-            $prezime = $_POST["prezimeZaposlenika"];
-            $email = $_POST["email"];
-            $kontakt = $_POST["kontaktBr"];
-            $poduzeceId = $_POST["poduzeceId"];
+                $ime = $_POST["imeZaposlenika"];
+                $prezime = $_POST["prezimeZaposlenika"];
+                $email = $_POST["email"];
+                $kontakt = $_POST["kontaktBr"];
+                $poduzeceId = $_POST["poduzeceId"];
 
-            $query = "SELECT ime, prezime FROM zaposlenici WHERE ime = '$ime' AND prezime = '$prezime';";
-            $result = mysqli_query($conn, $query) or die("Error");
+                $query = "SELECT ime, prezime FROM zaposlenici WHERE poduzeceId = '$poduzeceId' AND ime = '$ime' AND prezime = '$prezime'";
+                $result = mysqli_query($conn, $query) or die("Query Error");
 
-            if (mysqli_num_rows($result) >= 1)
-                echo "Zaposlenik sa unesenim imenom i prezimenom već postoji!";
-            else {
-                $sql = "INSERT INTO zaposlenici (ime, prezime, email, kontaktBr, poduzeceId) values (?, ?, ?, ?, ?)";
-                $stmt = mysqli_stmt_init($conn);
+                if (mysqli_num_rows($result) >= 1)
+                    echo "</br><span class='text-danger'>Zaposlenik sa unesenim imenom i prezimenom već postoji!</span>";
+                else {
+                    $sql = "INSERT INTO zaposlenici (ime, prezime, email, kontaktBr, poduzeceId) values (?, ?, ?, ?, ?)";
+                    $stmt = mysqli_stmt_init($conn);
 
-                if (mysqli_stmt_prepare($stmt, $sql)) {
-                    mysqli_stmt_bind_param($stmt, 'ssssi', $ime, $prezime, $email, $kontakt, $poduzeceId);
-                    mysqli_stmt_execute($stmt);
-                    echo "Uspješan unos!";
+                    if (mysqli_stmt_prepare($stmt, $sql)) {
+                        mysqli_stmt_bind_param($stmt, 'ssssi', $ime, $prezime, $email, $kontakt, $poduzeceId);
+                        mysqli_stmt_execute($stmt);
+                        echo "<br/><span class='text-success'>Zaposlenik uspješno unesen!</span>";
+                    } else{
+                        echo "<br/>Greška, zaposlenik nije unesen!";
+                    }
                 }
             }
-        }
-
-        mysqli_close($conn);
-
+            mysqli_close($conn);
         ?>
     </div>
 

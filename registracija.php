@@ -15,7 +15,6 @@
             header("Location: login.php");
             exit;
         }
-
         $username = $_SESSION["username"];
 	    $dozvola = $_SESSION["dozvola"];
 
@@ -23,7 +22,9 @@
         require_once "connection.php";
     ?>
 
-    <div class="container-fluid" style="width: 850px;">
+    <div class="container-fluid wrapper">
+        <h4 style="font-size: 1.6rem;">Registracija korisnika</h4>
+        <br />
         <form method="POST">
             <div class="row">
                 <label class="col-8">Korisničko ime:
@@ -54,7 +55,7 @@
             </div>
             
             <div style="margin-top:20px">
-                <input class="btn btn-success" name="submit" id="submit" type="submit" value="Unesi">
+                <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Registriraj">
                 <a class="btn btn-outline-secondary" style="margin-left:5px;" href="../administracija-zaposlenika">Povratak na početnu</a>
             </div>
         </form>
@@ -135,10 +136,10 @@
             $hashPassword = password_hash($password, CRYPT_BLOWFISH);
                 
             $query = "SELECT korisnicko_ime FROM korisnici WHERE korisnicko_ime = '$username';";
-            $result = mysqli_query($conn, $query) or die ("Error");
+            $result = mysqli_query($conn, $query) or die ("Query Error");
 
             if(mysqli_num_rows($result) >= 1)
-                echo "Korisničko ime već postoji!";
+                echo "</br><span class='text-danger'>Korisničko ime već postoji!</span>";
             else {
                 $sql = "INSERT INTO korisnici (korisnicko_ime, lozinka, dozvola) values (?, ?, ?)";
                 $stmt = mysqli_stmt_init($conn);
@@ -146,7 +147,7 @@
                 if (mysqli_stmt_prepare($stmt, $sql)) {
                     mysqli_stmt_bind_param($stmt, 'sss', $username, $hashPassword, $dozvola);
                     mysqli_stmt_execute($stmt);
-                    echo "Uspješan unos!";
+                    echo "<br/>Uspješan unos!";
                 }
             }
         }

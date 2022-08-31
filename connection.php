@@ -4,5 +4,5 @@
 	$pass = "";	
 	$db = "administracija_zaposlenika_db";
 				
-	$conn = mysqli_connect($servername, $user, $pass, $db) or die("Error" . mysqli_connect_error());
+	$conn = mysqli_connect($servername, $user, $pass, $db) or die("Connection Error" . mysqli_connect_error());
 ?>

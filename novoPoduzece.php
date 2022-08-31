@@ -16,16 +16,16 @@
             header("Location: login.php");
             exit;
         }
-
         $username = $_SESSION["username"];
         $dozvola = $_SESSION["dozvola"];
             
         include "header.php";
-        // include "footer.php";
         require_once "connection.php";
     ?>
     
-    <div class="container-fluid" style="width: 850px;">
+    <div class="container-fluid wrapper">
+    <h4 style="font-size: 1.6rem;">Unos poduzeća</h4>
+    <br />
         <form method="POST">
             <div class="row">
                 <label class="col-8">Naziv poduzeća:
@@ -33,7 +33,7 @@
                 </label>
             </div>
 
-            <div class="row">
+            <div class="row form-spacing">
                 <label class="col-4">Adresa:
                     <input class="form-control" name="adresaPoduzeca" type="text" placeholder="Unesite adresu">
                 </label>
@@ -42,7 +42,7 @@
                 </label>
             </div>
 
-            <div class="row">
+            <div class="row form-spacing">
                 <label class="col-4">Mjesto:
                     <input class="form-control" name="mjesto" type="text" placeholder="Unesite mjesto">
                 </label>
@@ -53,40 +53,39 @@
             </div>
 
             <div style="margin-top:20px">
-                <input class="btn btn-success" name="submit" id="submit" type="submit" value="Unesi">
+                <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Unesi">
                 <a class="btn btn-outline-secondary" style="margin-left:5px;" href="../administracija-zaposlenika">Povratak na početnu</a>
             </div>
         </form>
 
         <?php
+            if (isset($_POST["submit"])) {
 
-        if (isset($_POST["submit"])) {
+                $naziv = $_POST["nazivPoduzeca"];
+                $adresa = $_POST["adresaPoduzeca"];
+                $postBr = $_POST["postBr"];
+                $mjesto = $_POST["mjesto"];
+                $kontakt = $_POST["kontaktBr"];
 
-            $naziv = $_POST["nazivPoduzeca"];
-            $adresa = $_POST["adresaPoduzeca"];
-            $postBr = $_POST["postBr"];
-            $mjesto = $_POST["mjesto"];
-            $kontakt = $_POST["kontaktBr"];
+                $query = "SELECT nazivPoduzeca FROM poduzeca WHERE nazivPoduzeca = '$naziv'";
+                $result = mysqli_query($conn, $query) or die("Query Error");
 
-            $query = "SELECT nazivPoduzeca FROM poduzeca WHERE nazivPoduzeca = '$naziv';";
-            $result = mysqli_query($conn, $query) or die("Error");
+                if (mysqli_num_rows($result) >= 1)
+                    echo "</br><span class='text-danger'>Poduzeće sa unesenim nazivom već postoji!</span>";
+                else {
+                    $sql = "INSERT INTO poduzeca (nazivPoduzeca, adresa, postBr, mjesto, kontaktBr) values (?, ?, ?, ?, ?)";
+                    $stmt = mysqli_stmt_init($conn);
 
-            if (mysqli_num_rows($result) >= 1)
-                echo "Poduzece sa unesenim nazivom već postoji!";
-            else {
-                $sql = "INSERT INTO poduzeca (nazivPoduzeca, adresa, postBr, mjesto, kontaktBr) values (?, ?, ?, ?, ?)";
-                $stmt = mysqli_stmt_init($conn);
-
-                if (mysqli_stmt_prepare($stmt, $sql)) {
-                    mysqli_stmt_bind_param($stmt, 'ssiss', $naziv, $adresa, $postBr, $mjesto, $kontakt);
-                    mysqli_stmt_execute($stmt);
-                    echo "Uspješan unos!";
+                    if (mysqli_stmt_prepare($stmt, $sql)) {
+                        mysqli_stmt_bind_param($stmt, 'ssiss', $naziv, $adresa, $postBr, $mjesto, $kontakt);
+                        mysqli_stmt_execute($stmt);
+                        echo "<br/><span class='text-success'>Poduzeće uspješno uneseno!</span>";
+                    } else{
+                        echo "<br/>Greška, poduzeće nije uneseno!";
+                    }
                 }
-            }
-        }
-        
-        mysqli_close($conn);
-
+            }   
+            mysqli_close($conn);
         ?>
     </div>
     
