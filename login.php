@@ -24,27 +24,6 @@
 				}
 			}
 			require_once "connection.php";
-		?>
-		<div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; text-align:center; margin-top:20vh;">
-			<h2><a style="text-decoration:none;" href="/administracija-zaposlenika">Administracija zaposlenika</a></h2>
-			<form method="POST" style="margin-top:30px;">
-				<label>Korisničko ime:
-					<input class="form-control" name="username" type="text" required>
-				</label> <br/>
-
-				<label>Lozinka:
-					<input class="form-control" name="password" type="password" required>
-				</label> <br/><br/>
-
-				<input class="btn btn-primary" name="submit" type="submit" value="Prijava">
-			</form>
-		</div>
-		<div class="footer" style="margin-top:45vh;">
-			<hr></hr>
-			<p>Web aplikacija za administraciju podataka zaposlenika poduzeća - Završni rad - Amar Karamehmedović</p>
-		</div>
-
-		<?php
 
 			if (isset($_POST["submit"])) {
 
@@ -73,24 +52,39 @@
 						$_SESSION["loggedIn"] = true;
 						$_SESSION["username"] = $username;
 						$_SESSION["dozvola"] = $dozvola;
-							
+						
+						mysqli_close($conn);
 						header("Location: ../administracija-zaposlenika");
 						exit;
-					} else {
-						echo "<span style='color:red;'>Unijeli ste pogrešno korisničko ime ili lozinku</span>";
-					}
+					} 
 
 					mysqli_stmt_close($stmt);
 				}
 			}
-
-			// echo "<div class='container-fluid' style='padding-top:27%;'>";
-			// 	echo "<div class='row'>";
-			// 		echo include "footer.php";
-			// 	echo "</div>";
-			// echo "</div>";
-			mysqli_close($conn); 
 		?>
+		<div style="font-family: Trebuchet MS, Arial, Helvetica, sans-serif; text-align:center; margin-top:20vh;">
+			<h2><a style="text-decoration:none;" href="/administracija-zaposlenika">Administracija zaposlenika</a></h2>
+			<form method="POST" style="margin-top:30px;">
+				<label>Korisničko ime:
+					<input class="form-control" name="username" type="text" required>
+				</label> <br/>
+
+				<label>Lozinka:
+					<input class="form-control" name="password" type="password" required>
+				</label> <br/><br/>
+
+				<input class="btn btn-primary" name="submit" type="submit" value="Prijava">
+				<?php
+					if(isset($_POST["submit"]) && !isset($_SESSION["loggedIn"])){
+						echo "<br/><br/><span class='text-danger'>Unijeli ste pogrešno korisničko ime ili lozinku</span>";
+					}
+				?>
+			</form>
+		</div>
+		<div class="footer" style="margin-top:45vh;">
+			<hr></hr>
+			<p>Web aplikacija za administraciju podataka zaposlenika poduzeća - Završni rad - Amar Karamehmedović</p>
+		</div>
 	</div>
 
 	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-A3rJD856KowSb7dwlZdYEkO39Gagi7vIsF0jrRAoQmDKKtQBHUuLZ9AsSv4jD4Xa" crossorigin="anonymous"></script>
