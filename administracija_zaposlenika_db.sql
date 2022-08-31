@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2022 at 05:25 AM
+-- Generation Time: Aug 31, 2022 at 11:48 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -52,10 +52,10 @@ INSERT INTO `korisnici` (`id`, `korisnicko_ime`, `lozinka`, `dozvola`) VALUES
 CREATE TABLE `poduzeca` (
   `id` int(11) NOT NULL,
   `nazivPoduzeca` varchar(32) COLLATE utf8mb4_croatian_ci NOT NULL,
-  `adresa` varchar(32) COLLATE utf8mb4_croatian_ci NOT NULL,
-  `postBr` int(6) NOT NULL,
-  `mjesto` varchar(32) COLLATE utf8mb4_croatian_ci NOT NULL,
-  `kontaktBr` varchar(15) COLLATE utf8mb4_croatian_ci NOT NULL
+  `adresa` varchar(32) COLLATE utf8mb4_croatian_ci DEFAULT NULL,
+  `postBr` int(6) DEFAULT NULL,
+  `mjesto` varchar(32) COLLATE utf8mb4_croatian_ci DEFAULT NULL,
+  `kontaktBr` varchar(15) COLLATE utf8mb4_croatian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_croatian_ci;
 
 --
@@ -78,7 +78,10 @@ INSERT INTO `poduzeca` (`id`, `nazivPoduzeca`, `adresa`, `postBr`, `mjesto`, `ko
 (13, 'King ICT d.o.o.', 'Buzinski prilaz 10', 10000, 'BUZIN', '01 9987 514'),
 (14, 'Patano d.o.o.', 'Ilica 12', 10000, 'ZAGREB', '01 5235 634'),
 (15, 'Majadero j.d.o.o.', 'Gajeva 3', 10000, 'ZAGREB', '01 3525 531'),
-(16, 'Buxar d.o.o.', 'Palmotićeva 12', 10000, 'ZAGREB', '01 6436 321');
+(16, 'Buxar d.o.o.', 'Palmotićeva 12', 10000, 'ZAGREB', '01 6436 321'),
+(17, 'A1 d.o.o.', 'Slavonska Avenija 14', 10000, 'ZAGREB', '01 5321 444'),
+(18, 'Dukat d.d.', 'Slavonska Avenija 32', 10000, 'ZAGREB', '01 3525 444'),
+(19, 'Bastan d.o.o.', 'Ilica 118', 10000, 'ZAGREB', '01 1325 532');
 
 -- --------------------------------------------------------
 
@@ -90,8 +93,8 @@ CREATE TABLE `zaposlenici` (
   `id` int(11) NOT NULL,
   `ime` varchar(16) COLLATE utf8mb4_croatian_ci NOT NULL,
   `prezime` varchar(32) COLLATE utf8mb4_croatian_ci NOT NULL,
-  `email` varchar(20) COLLATE utf8mb4_croatian_ci NOT NULL,
-  `kontaktBr` varchar(15) COLLATE utf8mb4_croatian_ci NOT NULL,
+  `email` varchar(20) COLLATE utf8mb4_croatian_ci DEFAULT NULL,
+  `kontaktBr` varchar(15) COLLATE utf8mb4_croatian_ci DEFAULT NULL,
   `poduzeceId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_croatian_ci;
 
@@ -102,20 +105,24 @@ CREATE TABLE `zaposlenici` (
 INSERT INTO `zaposlenici` (`id`, `ime`, `prezime`, `email`, `kontaktBr`, `poduzeceId`) VALUES
 (1, 'Marina', 'Kovačić', 'marinak@ledo.hr', '0981234567', 1),
 (2, 'Ivan', 'Horvat', 'ivanh@ledo.hr', '0982345678', 1),
-(3, 'Ana', 'Vuković', 'anav@jamnica.hr', '0983456789', 2),
+(3, 'Anica', 'Vučković', 'anav@franck.hr', '0983456777', 4),
 (4, 'Marko', 'Babić', 'markob@jamnica.hr', '0984567890', 2),
-(5, 'Petra', 'Knežević', 'petrak@kras.hr', '0985678901', 3),
-(6, 'Luka', 'Novak', 'lukan@kras.hr', '0986789012', 3),
+(5, 'Ivan', 'Horvat', 'petrak@kras.hr', '0985678901', 3),
+(6, 'Pero', 'Peric', 'lukan@kras.hr', '0986789012', 3),
 (7, 'Karlo', 'Petrović', 'karlop@altis.hr', '0997894561', 4),
 (8, 'Matija', 'Maljević', 'matijam@batis.hr', '098534543', 4),
 (9, 'Petar', 'Živković', 'petarz@gmail.com', '0999876541', 5),
 (10, 'Bojan', 'Jurić', 'bojan@jamnica.hr', '0986547897', 5),
 (11, 'Domagoj', 'Grgić', 'domagojg@jamnica.hr', '0995467897', 6),
-(12, 'Zoran', 'Pavlović', 'zoranp@altis.hr', '0951234654', 6),
+(12, 'Zoran', 'Pavlović', 'zoranp@kaufland.hr', '0951234654', 12),
 (13, 'Ivan', 'Pavlović', 'ivanp@kaufland.hr', '098754134', 7),
 (14, 'Goran', 'Horvat', 'goranh@remaris.hr', '0986348854', 7),
 (15, 'Marija', 'Lac', 'marijal@prahir.hr', '0997645154', 8),
-(16, 'Berislav', 'Ivančić', 'berislavi@zaba.hr', '0956478548', 8);
+(16, 'Ivan', 'Horvat', 'berislavi@zaba.hr', '0956478548', 8),
+(17, 'Marko', 'Horvatović', 'aante@a1.hr', '0973353123', 17),
+(18, 'Marko', 'Babić', 'mmirko@a1.hr', '0985325235', 17),
+(19, 'Ivan', 'Horvat', 'ihorvat@gmail.com', '098532973', 9),
+(20, 'Ivan', 'Horvat', 'ihor@gmail.com', '0983726382', 2);
 
 --
 -- Indexes for dumped tables
@@ -155,13 +162,13 @@ ALTER TABLE `korisnici`
 -- AUTO_INCREMENT for table `poduzeca`
 --
 ALTER TABLE `poduzeca`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `zaposlenici`
 --
 ALTER TABLE `zaposlenici`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

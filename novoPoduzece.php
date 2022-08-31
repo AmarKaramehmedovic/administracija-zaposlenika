@@ -29,7 +29,7 @@
         <form method="POST">
             <div class="row">
                 <label class="col-8">Naziv poduzeća:
-                    <input class="form-control" name="nazivPoduzeca" type="text" required placeholder="Unesite naziv">
+                    <input class="form-control" name="nazivPoduzeca" type="text" placeholder="Unesite naziv" required>
                 </label>
             </div>
 

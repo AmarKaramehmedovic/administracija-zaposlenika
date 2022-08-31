@@ -5,7 +5,7 @@ Kroz aplikaciju, osim pretrage je moguća i administracija, dodavanje poduzeća,
 VIDEO PREZENTACIJA: https://youtu.be/4umOStl9j2k
 
 UPUTE:
-Da bi aplikacija ispravno radila, mySQL bazu (koja se nalazi u repozitoriju), potrebno je importati kroz phpmyadmin.
+Da bi aplikacija ispravno radila, mySQL bazu (koja se nalazi u repozitoriju), potrebno je importati kroz phpmyadmin (prilikom importa obavezno isključiti foreign key checks).
 
 Login podaci za aplikaciju:
 

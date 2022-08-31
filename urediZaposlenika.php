@@ -81,7 +81,7 @@
         <form method="POST">
             <div class="row">
                 <label class="col-8">Naziv poduzeća zaposlenika:
-                    <select name="poduzeceId" class="form-select">
+                    <select name="poduzeceId" class="form-select" required>
                         <?php
                             $query = "SELECT id, nazivPoduzeca FROM poduzeca ORDER BY nazivPoduzeca";
                             $result = mysqli_query($conn, $query) or die("Query Error");
@@ -99,10 +99,10 @@
 
             <div class="row form-spacing">
                 <label class="col-4">Ime:
-                    <input class="form-control" value="<?php echo $ime; ?>" name="imeZaposlenika" type="text" placeholder="Unesite ime">
+                    <input class="form-control" value="<?php echo $ime; ?>" name="imeZaposlenika" type="text" placeholder="Unesite ime" required>
                 </label>
                 <label class="col-4">Prezime:
-                    <input class="form-control" value="<?php echo $prezime; ?>" name="prezimeZaposlenika" type="text" placeholder="Unesite prezime">
+                    <input class="form-control" value="<?php echo $prezime; ?>" name="prezimeZaposlenika" type="text" placeholder="Unesite prezime" required>
                 </label>
             </div>
 
