@@ -43,10 +43,12 @@
 			</div>
 			<div class="col-6" style="padding-right: 2px;">
 				<?php
-					echo '<ul class="action-menu">';
-					echo '<li><a class="btn btn-primary" href="novoPoduzece.php">Unos poduzeća</a></li>';
-					echo '<li><a class="btn btn-primary" href="noviZaposlenik.php" style="margin-left:5px;">Unos zaposlenika</a></li>';
-					echo '</ul>';
+					if($dozvola != "subscriber"){
+						echo '<ul class="action-menu">';
+						echo '<li><a class="btn btn-primary" href="novoPoduzece.php">Unos poduzeća</a></li>';
+						echo '<li><a class="btn btn-primary" href="noviZaposlenik.php" style="margin-left:5px;">Unos zaposlenika</a></li>';
+						echo '</ul>';
+					}
 				?>
 			</div>
 		</div>

@@ -66,6 +66,17 @@
                 }
             }
         }
+
+        if (isset($_POST["delete"])) {
+            $sql1 = "DELETE FROM zaposlenici WHERE poduzeceId = '$id'";
+            $sql2 = "DELETE FROM poduzeca WHERE id = '$id'";
+
+            if (mysqli_query($conn, $sql1) && mysqli_query($conn, $sql2)) {
+                header("refresh:1; url='../administracija-zaposlenika'");
+            }else {
+                echo "Greška u brisanju: " . mysqli_error($conn);
+            }
+        }
     ?>
 
     <div class="container-fluid wrapper">
@@ -104,10 +115,19 @@
                 </label>
             </div>
 
-            <div style="margin-top:20px">
-                <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Spremi">
-                <a class="btn btn-outline-secondary" style="margin-left:5px;" href="../administracija-zaposlenika">Povratak na početnu</a>
+            <div class="row" style="margin-top:20px">
+                <div class="col-1">
+                    <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Spremi">
+                </div>
+                <div class="col-3">
+                    <input class="btn btn-danger" style="margin-left:15px;" name="delete" id="delete" type="submit" value="Izbriši"
+                    onclick="return confirm('Jeste li sigurni da želite izbrisati ovo poduzeće?\nOva radnja će izbrisati i sve zaposlenike ovog poduzeća')">
+                </div>
+                <div class="col-4" style="text-align:right;">
+                    <a class="btn btn-outline-secondary" href="../administracija-zaposlenika">Povratak na početnu</a>
+                </div>
             </div>
+
             <?php
                 if(isset($_POST["submit"]) && $_SESSION["editSuccess"] == true){
                     echo "<br/><span class='text-success'>Poduzeće uspješno uređeno!</span>";
@@ -115,6 +135,9 @@
                 }
                 else if(isset($_POST["submit"]) && $_SESSION["editSuccess"] == false){
                     echo "</br><span class='text-danger'>Greška, provjerite da niste unijeli naziv poduzeća koji već postoji!</span>";
+                }
+                else if(isset($_POST["delete"])){
+                    echo "</br><span class='text-success'>Poduzeće i njegovi zaposlenici uspješno izbrisani!</span>";
                 }
                 mysqli_close($conn);
             ?>

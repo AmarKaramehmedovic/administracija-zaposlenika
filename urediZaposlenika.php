@@ -43,7 +43,11 @@
             $kontakt = $_POST["kontaktBr"];
             $poduzeceId = $_POST["poduzeceId"];
 
-            $query = "SELECT ime, prezime FROM zaposlenici WHERE poduzeceId = '$poduzeceId' AND ime = '$ime' AND prezime = '$prezime' AND ime != '" . $row['ime'] . "' AND prezime != '". $row['prezime'] ."'";
+            $query = "SELECT ime, prezime
+                    FROM zaposlenici
+                    WHERE poduzeceId = '$poduzeceId'
+                    AND ime = '$ime' AND prezime = '$prezime'
+                    AND ime != '" . $row['ime'] . "' AND prezime != '". $row['prezime'] ."'";
             $result = mysqli_query($conn, $query) or die("Query Error");
 
             if (mysqli_num_rows($result) == 0){
@@ -66,10 +70,20 @@
                 }
             }
         }
+
+        if (isset($_POST["delete"])) {
+            $sql = "DELETE FROM zaposlenici WHERE id = '$id'";
+
+            if (mysqli_query($conn, $sql)) {
+                header("refresh:1; url='../administracija-zaposlenika'");
+            }else {
+                echo "Greška u brisanju: " . mysqli_error($conn);
+            }
+        }
     ?>
     
     <div class="container-fluid wrapper">
-        <h4 style="font-size: 1.6rem;">Uređivanje poduzeća: 
+        <h4 style="font-size: 1.6rem;">Uređivanje zaposlenika: 
         "<?php
             if(isset($_POST["submit"]) && $_SESSION["editSuccess"] == false){
                 echo $row['ime']. " " .$row['prezime'];
@@ -115,10 +129,19 @@
                 </label>
             </div>
 
-            <div style="margin-top:20px">
-                <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Spremi">
-                <a class="btn btn-outline-secondary" style="margin-left:5px;" href="../administracija-zaposlenika">Povratak na početnu</a>
+            <div class="row" style="margin-top:20px">
+                <div class="col-1">
+                    <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Spremi">
+                </div>
+                <div class="col-3">
+                    <input class="btn btn-danger" style="margin-left:15px;" name="delete" id="delete" type="submit" value="Izbriši"
+                    onclick="return confirm('Jeste li sigurni da želite izbrisati ovog zaposlenika?')">
+                </div>
+                <div class="col-4" style="text-align:right;">
+                    <a class="btn btn-outline-secondary" href="../administracija-zaposlenika">Povratak na početnu</a>
+                </div>
             </div>
+
             <?php
                 if(isset($_POST["submit"]) && $_SESSION["editSuccess"] == true){
                     echo "<br/><span class='text-success'>Zaposlenik uspješno uređen!</span>";
@@ -126,6 +149,9 @@
                 }
                 else if(isset($_POST["submit"]) && $_SESSION["editSuccess"] == false){
                     echo "</br><span class='text-danger'>Greška, provjerite da niste unijeli ime zaposlenika koji već postoji!</span>";
+                }
+                else if(isset($_POST["delete"])){
+                    echo "</br><span class='text-success'>Zaposlenik uspješno izbrisan!</span>";
                 }
                 mysqli_close($conn);
             ?>

@@ -52,9 +52,13 @@
                 </label>
             </div>
 
-            <div style="margin-top:20px">
-                <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Unesi">
-                <a class="btn btn-outline-secondary" style="margin-left:5px;" href="../administracija-zaposlenika">Povratak na početnu</a>
+            <div class="row" style="margin-top:20px">
+                <div class="col-4">
+                    <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Unesi">
+                </div>
+                <div class="col-4" style="text-align:right;">
+                    <a class="btn btn-outline-secondary" href="../administracija-zaposlenika">Povratak na početnu</a>
+                </div>
             </div>
         </form>
 

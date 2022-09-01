@@ -50,6 +50,7 @@
                     <select class="form-select" name="dozvola">
                         <option value="administrator">Administrator</option>
                         <option value="editor">Editor</option>
+                        <option value="subscriber">Subscriber</option>
                     </select>
                 </label>
             </div>
