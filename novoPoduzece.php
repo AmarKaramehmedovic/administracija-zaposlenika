@@ -16,8 +16,14 @@
             header("Location: login.php");
             exit;
         }
-        $username = $_SESSION["username"];
+        
         $dozvola = $_SESSION["dozvola"];
+        if($dozvola == 'subscriber'){
+            header("Location: ../administracija-zaposlenika");
+            exit;
+        }
+
+        $username = $_SESSION["username"];
             
         include "header.php";
         require_once "connection.php";

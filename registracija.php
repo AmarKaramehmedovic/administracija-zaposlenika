@@ -15,15 +15,21 @@
             header("Location: login.php");
             exit;
         }
-        $username = $_SESSION["username"];
+
 	    $dozvola = $_SESSION["dozvola"];
+        if($dozvola != 'administrator'){
+            header("Location: ../administracija-zaposlenika");
+            exit;
+        }
+
+        $username = $_SESSION["username"];
 
         include "header.php";
         require_once "connection.php";
     ?>
 
     <div class="container-fluid wrapper">
-        <h4 style="font-size: 1.6rem;">Registracija korisnika</h4>
+        <h4 style="font-size: 1.6rem;">Registracija korisnika aplikacije</h4>
         <br />
         <form method="POST">
             <div class="row">
@@ -33,7 +39,7 @@
                 </label>
             </div>
 
-            <div class="row">
+            <div class="row form-spacing">
                 <label class="col-4">Lozinka:
                     <input class="form-control"  name="password" id="password" type="password" placeholder="Unesite lozinku" required>
                     <span id="porukaLozinka" class="error"></span>
@@ -45,9 +51,9 @@
                 </label>
             </div>
             
-            <div class="row">
+            <div class="row form-spacing">
                 <label class="col-4">Dozvola:
-                    <select class="form-select" name="dozvola">
+                    <select class="form-select" name="dozvola" required>
                         <option value="administrator">Administrator</option>
                         <option value="editor">Editor</option>
                         <option value="subscriber">Subscriber</option>
@@ -55,9 +61,13 @@
                 </label>
             </div>
             
-            <div style="margin-top:20px">
-                <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Registriraj">
-                <a class="btn btn-outline-secondary" style="margin-left:5px;" href="../administracija-zaposlenika">Povratak na početnu</a>
+            <div class="row" style="margin-top:20px">
+                <div class="col-4">
+                    <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Registriraj">
+                </div>
+                <div class="col-4" style="text-align:right;">
+                    <a class="btn btn-outline-secondary" href="../administracija-zaposlenika">Povratak na početnu</a>
+                </div>
             </div>
         </form>
         
@@ -124,11 +134,6 @@
         </script>
 
         <?php
-        
-        if($_SESSION["dozvola"] != 'administrator'){
-            header("Location: ../administracija-zaposlenika");
-            exit;
-        }
 
         if (isset($_POST["submit"])) {
             $username = $_POST["username"];
@@ -148,7 +153,9 @@
                 if (mysqli_stmt_prepare($stmt, $sql)) {
                     mysqli_stmt_bind_param($stmt, 'sss', $username, $hashPassword, $dozvola);
                     mysqli_stmt_execute($stmt);
-                    echo "<br/>Uspješan unos!";
+                    echo "<br/><span class='text-success'>Korisnik uspješno unesen!</span>";
+                } else{
+                    echo "<br/>Greška, korisnik nije unesen!";
                 }
             }
         }
