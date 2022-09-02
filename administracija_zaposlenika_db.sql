@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 31, 2022 at 11:48 PM
+-- Generation Time: Sep 02, 2022 at 05:08 AM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -40,8 +40,8 @@ CREATE TABLE `korisnici` (
 
 INSERT INTO `korisnici` (`id`, `korisnicko_ime`, `lozinka`, `dozvola`) VALUES
 (1, 'admin', '$2y$10$q9xqFKF/F6xgMZCbbOwz4OaZ8pPHZHJ0/iYq0dbZ8T4IhYR.fw4I2', 'administrator'),
-(2, 'pero', '$2y$10$.9WNL8MExLKtColEnrdE7uSAwNWAa9vReunIWjeWklD2dy3aoqE1C', 'editor'),
-(3, 'marko', '$2y$10$WOaLEHYLWq1zYvJHDdRO/OinjY5iIXXSfbbTClbSRFnnu3nbGWIpC', 'editor');
+(2, 'goran', '$2y$10$C1XrMuUPWFHz4q7i984bxuWMEpCV03J59WAImZ/1ndgD9bLoQ.6oy', 'editor'),
+(3, 'marko', '$2y$10$yBa4MuW.8AJSq1VZGjd5y.bgTOQ0uLXgG3JfeFuHhBDA1JVCJ5O16', 'subscriber');
 
 -- --------------------------------------------------------
 
@@ -156,7 +156,7 @@ ALTER TABLE `zaposlenici`
 -- AUTO_INCREMENT for table `korisnici`
 --
 ALTER TABLE `korisnici`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `poduzeca`
