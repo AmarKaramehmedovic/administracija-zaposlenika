@@ -62,9 +62,9 @@
 				//table zaposlenici
 				echo "<tr>";
 						if ($dozvola == 'administrator' || $dozvola == 'editor') {
-							echo "<th height='30' colspan='6'>Zaposlenici</th>";
+							echo "<th height='30' colspan='7'>Zaposlenici</th>";
 						}else if($dozvola == 'subscriber'){
-							echo "<th height='30' colspan='5'>Zaposlenici</th>";
+							echo "<th height='30' colspan='6'>Zaposlenici</th>";
 						}
 						echo "</tr>";
 						echo "<tr>
@@ -72,13 +72,14 @@
 								<th>Ime</th>
 								<th>Prezime</th>
 								<th>Email</th>
-								<th>Kontakt broj</th>";
+								<th>Kontakt broj</th>
+								<th>Napomena</th>";
 								if ($dozvola == 'administrator' || $dozvola == 'editor') {
 									echo "<th></th>";
 								}
 							echo "</tr>";
 
-				$sql = "SELECT *, zaposlenici.id AS zId, zaposlenici.kontaktBr AS kontaktBrZ
+				$sql = "SELECT *, zaposlenici.id AS zId, zaposlenici.kontaktBr AS kontaktBrZ, zaposlenici.napomena AS napomenaZ
 						FROM zaposlenici
 						LEFT JOIN poduzeca ON zaposlenici.poduzeceId = poduzeca.id
 						WHERE poduzeca.nazivPoduzeca LIKE '%$input%'
@@ -96,6 +97,7 @@
 							<a style='text-decoration:none;' href='mailto:" . $row["email"] . "'>" . $row["email"] . "</a>
 						</td>";
 					echo "<td>" . $row["kontaktBrZ"] . "</td>";
+					echo "<td width='225'>" . $row["napomenaZ"] . "</td>";
 					if ($dozvola == 'administrator' || $dozvola == 'editor') {
 						echo "<td>
 								<a class='btn btn-outline-primary' href='urediZaposlenika.php?id=". $row["zId"]. "'>Uredi</a>
@@ -107,24 +109,23 @@
 				//table poduzeca
 						echo "<tr>";
 						if ($dozvola == 'administrator' || $dozvola == 'editor') {
-							echo "<th height='30' colspan='5'>Poduzeća</th>";
+							echo "<th height='30' colspan='6'>Poduzeća</th>";
 						}else if($dozvola == 'subscriber'){
-							echo "<th height='30' colspan='4'>Poduzeća</th>";
+							echo "<th height='30' colspan='5'>Poduzeća</th>";
 						}
 						echo "</tr>";
 						echo "<tr>
 							<th>Poduzeće</th>
 							<th>Adresa</th>
 							<th>Mjesto</th>
-							<th>Kontakt broj</th>";
+							<th>Kontakt broj</th>
+							<th>Napomena</th>";
 							if ($dozvola == 'administrator' || $dozvola == 'editor') {
 								echo "<th></th>";
 							}
 						echo "</tr>";
 
-				$sql = "SELECT id, nazivPoduzeca, adresa, mjesto, kontaktBr
-						FROM poduzeca
-						ORDER BY nazivPoduzeca";
+				$sql = "SELECT * FROM poduzeca ORDER BY nazivPoduzeca";
 
 				$result = mysqli_query($conn, $sql) or die("Query Error");
 				while ($row = mysqli_fetch_array($result)) {
@@ -135,6 +136,7 @@
 					echo "<td>" . $row["adresa"] . "</td>";
 					echo "<td>" . $row["mjesto"] . "</td>";
 					echo "<td>" . $row["kontaktBr"] . "</td>";
+					echo "<td width='225'>" . $row["napomena"] . "</td>";
 					if ($dozvola == 'administrator' || $dozvola == 'editor') {
 						echo "<td>
 								<a class='btn btn-outline-primary' href='urediPoduzece.php?id=". $row["id"]. "'>Uredi</a>

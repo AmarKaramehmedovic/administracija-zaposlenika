@@ -52,9 +52,14 @@
                 <label class="col-4">Mjesto:
                     <input class="form-control" name="mjesto" type="text" placeholder="Unesite mjesto">
                 </label>
-
                 <label class="col-4">Kontakt broj:
                     <input class="form-control" type="tel" name="kontaktBr" pattern="[0-9\s\/\-\+]*" placeholder="Unesite broj telefona">
+                </label>
+            </div>
+
+            <div class="row form-spacing">
+                <label class="col-8">Napomena:
+                    <textarea class="form-control" name="napomena" rows="3" placeholder="Unesite napomenu"></textarea>
                 </label>
             </div>
 
@@ -76,6 +81,7 @@
                 $postBr = $_POST["postBr"];
                 $mjesto = $_POST["mjesto"];
                 $kontakt = $_POST["kontaktBr"];
+                $napomena = $_POST["napomena"];
 
                 $query = "SELECT nazivPoduzeca FROM poduzeca WHERE nazivPoduzeca = '$naziv'";
                 $result = mysqli_query($conn, $query) or die("Query Error");
@@ -83,11 +89,11 @@
                 if (mysqli_num_rows($result) >= 1)
                     echo "</br><span class='text-danger'>Poduzeće sa unesenim nazivom već postoji!</span>";
                 else {
-                    $sql = "INSERT INTO poduzeca (nazivPoduzeca, adresa, postBr, mjesto, kontaktBr) values (?, ?, ?, ?, ?)";
+                    $sql = "INSERT INTO poduzeca (nazivPoduzeca, adresa, postBr, mjesto, kontaktBr, napomena) values (?, ?, ?, ?, ?, ?)";
                     $stmt = mysqli_stmt_init($conn);
 
                     if (mysqli_stmt_prepare($stmt, $sql)) {
-                        mysqli_stmt_bind_param($stmt, 'ssiss', $naziv, $adresa, $postBr, $mjesto, $kontakt);
+                        mysqli_stmt_bind_param($stmt, 'ssisss', $naziv, $adresa, $postBr, $mjesto, $kontakt, $napomena);
                         mysqli_stmt_execute($stmt);
                         echo "<br/><span class='text-success'>Poduzeće uspješno uneseno!</span>";
                     } else{

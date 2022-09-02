@@ -61,7 +61,13 @@
                     <input class="form-control" name="email" type="email" placeholder="example@mail.com">
                 </label>
                 <label class="col-4">Kontakt broj:
-                    <input class="form-control" type="tel" name="kontaktBr" pattern="[0-9\s\/\-\+]*"  placeholder="Unesite broj telefona">
+                    <input class="form-control" type="tel" name="kontaktBr" pattern="[0-9\s\/\-\+]*" placeholder="Unesite broj telefona">
+                </label>
+            </div>
+
+            <div class="row form-spacing">
+                <label class="col-8">Napomena:
+                    <textarea class="form-control" name="napomena" rows="3" placeholder="Unesite napomenu"></textarea>
                 </label>
             </div>
 
@@ -82,6 +88,7 @@
                 $prezime = $_POST["prezimeZaposlenika"];
                 $email = $_POST["email"];
                 $kontakt = $_POST["kontaktBr"];
+                $napomena = $_POST["napomena"];
                 $poduzeceId = $_POST["poduzeceId"];
 
                 $query = "SELECT ime, prezime FROM zaposlenici WHERE poduzeceId = '$poduzeceId' AND ime = '$ime' AND prezime = '$prezime'";
@@ -90,11 +97,11 @@
                 if (mysqli_num_rows($result) >= 1)
                     echo "</br><span class='text-danger'>Zaposlenik sa unesenim imenom i prezimenom već postoji!</span>";
                 else {
-                    $sql = "INSERT INTO zaposlenici (ime, prezime, email, kontaktBr, poduzeceId) values (?, ?, ?, ?, ?)";
+                    $sql = "INSERT INTO zaposlenici (ime, prezime, email, kontaktBr, napomena, poduzeceId) values (?, ?, ?, ?, ?, ?)";
                     $stmt = mysqli_stmt_init($conn);
 
                     if (mysqli_stmt_prepare($stmt, $sql)) {
-                        mysqli_stmt_bind_param($stmt, 'ssssi', $ime, $prezime, $email, $kontakt, $poduzeceId);
+                        mysqli_stmt_bind_param($stmt, 'sssssi', $ime, $prezime, $email, $kontakt, $napomena, $poduzeceId);
                         mysqli_stmt_execute($stmt);
                         echo "<br/><span class='text-success'>Zaposlenik uspješno unesen!</span>";
                     } else{

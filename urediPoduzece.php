@@ -40,6 +40,7 @@
         $postBr = $row['postBr'];
         $mjesto = $row['mjesto'];
         $kontakt = $row['kontaktBr'];
+        $napomena = $row['napomena'];
 
         if (isset($_POST["submit"])) {
 
@@ -48,6 +49,7 @@
             $postBr = $_POST["postBr"];
             $mjesto = $_POST["mjesto"];
             $kontakt = $_POST["kontaktBr"];
+            $napomena = $_POST["napomena"];
 
             $query = "SELECT nazivPoduzeca FROM poduzeca WHERE nazivPoduzeca = '$naziv' AND nazivPoduzeca != '". $row['nazivPoduzeca'] ."'";
             $result = mysqli_query($conn, $query) or die("Query Error");
@@ -58,13 +60,14 @@
                             adresa = ?,
                             postBr = ?,
                             mjesto = ?,
-                            kontaktBr = ?
+                            kontaktBr = ?,
+                            napomena = ?
                         WHERE id = ?";
 
                 $stmt = mysqli_stmt_init($conn);
 
                 if (mysqli_stmt_prepare($stmt, $sql)) {
-                    mysqli_stmt_bind_param($stmt, 'ssissi', $naziv, $adresa, $postBr, $mjesto, $kontakt, $id);
+                    mysqli_stmt_bind_param($stmt, 'ssisssi', $naziv, $adresa, $postBr, $mjesto, $kontakt, $napomena, $id);
                     mysqli_stmt_execute($stmt);
                     $_SESSION["editSuccess"] = true;
                 } else{
@@ -115,18 +118,21 @@
                 <label class="col-4">Mjesto:
                     <input class="form-control" value="<?php echo $mjesto; ?>" name="mjesto" type="text" placeholder="Unesite mjesto">
                 </label>
-
                 <label class="col-4">Kontakt broj:
                     <input class="form-control" value="<?php echo $kontakt; ?>" type="tel" name="kontaktBr" pattern="[0-9\s\/\-\+]*" placeholder="Unesite broj telefona">
                 </label>
             </div>
 
+            <div class="row form-spacing">
+                <label class="col-8">Napomena:
+                    <textarea class="form-control" name="napomena" rows="3" placeholder="Unesite napomenu"><?php echo $napomena; ?></textarea>
+                </label>
+            </div>
+
             <div class="row" style="margin-top:20px">
-                <div class="col-1">
+                <div class="col-4">
                     <input class="btn btn-primary" name="submit" id="submit" type="submit" value="Spremi">
-                </div>
-                <div class="col-3">
-                    <input class="btn btn-danger" style="margin-left:15px;" name="delete" id="delete" type="submit" value="Izbriši"
+                    <input class="btn btn-danger" style="margin-left:5px;" name="delete" id="delete" type="submit" value="Izbriši"
                     onclick="return confirm('Jeste li sigurni da želite izbrisati ovo poduzeće?\nOva radnja će izbrisati i sve zaposlenike ovog poduzeća')">
                 </div>
                 <div class="col-4" style="text-align:right;">
