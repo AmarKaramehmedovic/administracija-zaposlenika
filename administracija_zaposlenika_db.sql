@@ -40,8 +40,8 @@ CREATE TABLE `korisnici` (
 
 INSERT INTO `korisnici` (`id`, `korisnicko_ime`, `lozinka`, `dozvola`) VALUES
 (1, 'admin', '$2y$10$q9xqFKF/F6xgMZCbbOwz4OaZ8pPHZHJ0/iYq0dbZ8T4IhYR.fw4I2', 'administrator'),
-(2, 'goran', '$2y$10$C1XrMuUPWFHz4q7i984bxuWMEpCV03J59WAImZ/1ndgD9bLoQ.6oy', 'editor'),
-(3, 'marko', '$2y$10$yBa4MuW.8AJSq1VZGjd5y.bgTOQ0uLXgG3JfeFuHhBDA1JVCJ5O16', 'subscriber');
+(2, 'goran', '$2y$10$C1XrMuUPWFHz4q7i984bxuWMEpCV03J59WAImZ/1ndgD9bLoQ.6oy', 'urednik'),
+(3, 'marko', '$2y$10$yBa4MuW.8AJSq1VZGjd5y.bgTOQ0uLXgG3JfeFuHhBDA1JVCJ5O16', 'pretplatnik');
 
 -- --------------------------------------------------------
 

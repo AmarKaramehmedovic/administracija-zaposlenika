@@ -43,12 +43,12 @@
 			</div>
 			<div class="col-6" style="padding-right: 2px;">
 				<?php
-					if($dozvola == "administrator" || $dozvola == "editor"){
+					if($dozvola == "administrator" || $dozvola == "urednik"){
 						echo '<ul class="action-menu">';
 						echo '<li><a class="btn btn-primary" href="novoPoduzece.php">Unos poduzeća</a></li>';
 						echo '<li><a class="btn btn-primary" href="noviZaposlenik.php" style="margin-left:5px;">Unos zaposlenika</a></li>';
 						echo '</ul>';
-					}else if($dozvola == 'subscriber'){
+					}else if($dozvola == 'pretplatnik'){
 						echo "<div style='margin-top:54px;'></div>";
 					}
 				?>
@@ -61,9 +61,9 @@
 				$input = $_GET['poduzece'];
 				//table zaposlenici
 				echo "<tr>";
-						if ($dozvola == 'administrator' || $dozvola == 'editor') {
+						if ($dozvola == 'administrator' || $dozvola == 'urednik') {
 							echo "<th height='30' colspan='7'>Zaposlenici</th>";
-						}else if($dozvola == 'subscriber'){
+						}else if($dozvola == 'pretplatnik'){
 							echo "<th height='30' colspan='6'>Zaposlenici</th>";
 						}
 						echo "</tr>";
@@ -74,7 +74,7 @@
 								<th>Email</th>
 								<th>Kontakt broj</th>
 								<th>Napomena</th>";
-								if ($dozvola == 'administrator' || $dozvola == 'editor') {
+								if ($dozvola == 'administrator' || $dozvola == 'urednik') {
 									echo "<th></th>";
 								}
 							echo "</tr>";
@@ -98,7 +98,7 @@
 						</td>";
 					echo "<td>" . $row["kontaktBrZ"] . "</td>";
 					echo "<td width='225'>" . $row["napomenaZ"] . "</td>";
-					if ($dozvola == 'administrator' || $dozvola == 'editor') {
+					if ($dozvola == 'administrator' || $dozvola == 'urednik') {
 						echo "<td>
 								<a class='btn btn-outline-primary' href='urediZaposlenika.php?id=". $row["zId"]. "'>Uredi</a>
 							</td>";
@@ -108,9 +108,9 @@
 			} else {
 				//table poduzeca
 						echo "<tr>";
-						if ($dozvola == 'administrator' || $dozvola == 'editor') {
+						if ($dozvola == 'administrator' || $dozvola == 'urednik') {
 							echo "<th height='30' colspan='6'>Poduzeća</th>";
-						}else if($dozvola == 'subscriber'){
+						}else if($dozvola == 'pretplatnik'){
 							echo "<th height='30' colspan='5'>Poduzeća</th>";
 						}
 						echo "</tr>";
@@ -120,7 +120,7 @@
 							<th>Mjesto</th>
 							<th>Kontakt broj</th>
 							<th>Napomena</th>";
-							if ($dozvola == 'administrator' || $dozvola == 'editor') {
+							if ($dozvola == 'administrator' || $dozvola == 'urednik') {
 								echo "<th></th>";
 							}
 						echo "</tr>";
@@ -137,7 +137,7 @@
 					echo "<td>" . $row["mjesto"] . "</td>";
 					echo "<td>" . $row["kontaktBr"] . "</td>";
 					echo "<td width='225'>" . $row["napomena"] . "</td>";
-					if ($dozvola == 'administrator' || $dozvola == 'editor') {
+					if ($dozvola == 'administrator' || $dozvola == 'urednik') {
 						echo "<td>
 								<a class='btn btn-outline-primary' href='urediPoduzece.php?id=". $row["id"]. "'>Uredi</a>
 							</td>";

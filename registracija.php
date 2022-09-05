@@ -55,8 +55,8 @@
                 <label class="col-4">Dozvola:
                     <select class="form-select" name="dozvola" required>
                         <option value="administrator">Administrator</option>
-                        <option value="editor">Editor</option>
-                        <option value="subscriber">Subscriber</option>
+                        <option value="urednik">Urednik</option>
+                        <option value="pretplatnik">Pretplatnik</option>
                     </select>
                 </label>
             </div>

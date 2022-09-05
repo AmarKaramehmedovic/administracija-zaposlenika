@@ -18,7 +18,7 @@
         }
         
         $dozvola = $_SESSION["dozvola"];
-        if($dozvola == 'subscriber'){
+        if($dozvola == 'pretplatnik'){
             header("Location: ../administracija-zaposlenika");
             exit;
         }
