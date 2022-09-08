@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 02, 2022 at 05:08 AM
+-- Generation Time: Sep 08, 2022 at 04:02 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -55,33 +55,34 @@ CREATE TABLE `poduzeca` (
   `adresa` varchar(32) COLLATE utf8mb4_croatian_ci DEFAULT NULL,
   `postBr` int(6) DEFAULT NULL,
   `mjesto` varchar(32) COLLATE utf8mb4_croatian_ci DEFAULT NULL,
-  `kontaktBr` varchar(15) COLLATE utf8mb4_croatian_ci DEFAULT NULL
+  `kontaktBr` varchar(15) COLLATE utf8mb4_croatian_ci DEFAULT NULL,
+  `napomena` text COLLATE utf8mb4_croatian_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_croatian_ci;
 
 --
 -- Dumping data for table `poduzeca`
 --
 
-INSERT INTO `poduzeca` (`id`, `nazivPoduzeca`, `adresa`, `postBr`, `mjesto`, `kontaktBr`) VALUES
-(1, 'LEDO PLUS d.o.o.', 'Čavićeva 1a', 10000, 'ZAGREB', '01 2385 555'),
-(2, 'JAMNICA d.d.', 'Getaldićeva 3', 10000, 'ZAGREB', '01 2393 111'),
-(3, 'KRAŠ prehrambena industrija d.d.', 'Ravnice 48', 10000, 'ZAGREB', '01 2396 111'),
-(4, 'Franck d.d.', 'Prilaz Baruna Filipovića 28', 10000, 'ZAGREB', '01 1622 36'),
-(5, 'Zagrebačka banka d.d.', 'Trg bana Josipa Jelačića 10', 10000, 'ZAGREB', '01 3773 333'),
-(6, 'Altis d.o.o.', 'Bogovićeva 11', 10000, 'ZAGREB', '01 5432 555'),
-(7, 'Remaris', 'Frankopanska 12', 10000, 'ZAGREB', '01 4425 243'),
-(8, 'Matino j.d.o.o.', 'Gundulićeva 17', 10000, 'ZAGREB', '01 3555 253'),
-(9, 'Batis d.o.o.', 'Draškovićeva 13', 10000, 'ZAGREB', '01 5646 342'),
-(10, 'Lapano j.d.o.o.', 'Ilica 252', 10090, 'ZAGREB', '01 9954 222'),
-(11, 'Prahir d.o.o.', 'Zagrebačka 57', 10410, 'ZAGREB', '01 622 6536'),
-(12, 'Kaufland d.o.o.', 'Avenija Dubrovnik 13', 10040, 'ZAGREB', '01 5546 897'),
-(13, 'King ICT d.o.o.', 'Buzinski prilaz 10', 10000, 'BUZIN', '01 9987 514'),
-(14, 'Patano d.o.o.', 'Ilica 12', 10000, 'ZAGREB', '01 5235 634'),
-(15, 'Majadero j.d.o.o.', 'Gajeva 3', 10000, 'ZAGREB', '01 3525 531'),
-(16, 'Buxar d.o.o.', 'Palmotićeva 12', 10000, 'ZAGREB', '01 6436 321'),
-(17, 'A1 d.o.o.', 'Slavonska Avenija 14', 10000, 'ZAGREB', '01 5321 444'),
-(18, 'Dukat d.d.', 'Slavonska Avenija 32', 10000, 'ZAGREB', '01 3525 444'),
-(19, 'Bastan d.o.o.', 'Ilica 118', 10000, 'ZAGREB', '01 1325 532');
+INSERT INTO `poduzeca` (`id`, `nazivPoduzeca`, `adresa`, `postBr`, `mjesto`, `kontaktBr`, `napomena`) VALUES
+(1, 'LEDO PLUS d.o.o.', 'Čavićeva 1a', 10000, 'ZAGREB', '01 2385 555', 'Radimo marketing'),
+(2, 'JAMNICA d.d.', 'Getaldićeva 3', 10000, 'ZAGREB', '01 2393 111', 'Radimo mobilnu app za skladište'),
+(3, 'KRAŠ prehrambena industrija d.d.', 'Ravnice 48', 10000, 'ZAGREB', '01 2396 111', 'Izrađujemo web stranicu'),
+(4, 'Franck d.d.', 'Prilaz Baruna Filipovića 28', 10000, 'ZAGREB', '01 1622 36', 'Nabava kave za aparat'),
+(5, 'Zagrebačka banka d.d.', 'Trg bana Josipa Jelačića 10', 10000, 'ZAGREB', '01 3773 333', NULL),
+(6, 'Altis d.o.o.', 'Bogovićeva 11', 10000, 'ZAGREB', '01 5432 555', 'Podrška za poslovni program'),
+(7, 'Remaris', 'Frankopanska 12', 10000, 'ZAGREB', '01 4425 243', 'Suradnja u fiskalizaciji'),
+(8, 'Matino j.d.o.o.', 'Gundulićeva 17', 10000, 'ZAGREB', '01 3555 253', NULL),
+(9, 'Batis d.o.o.', 'Draškovićeva 17', 10000, 'ZAGREB', '01 5646 342', 'Nabava potrošnog materijala'),
+(10, 'Lapano j.d.o.o.', 'Ilica 252', 10090, 'ZAGREB', '01 9954 222', NULL),
+(11, 'Prahir d.o.o.', 'Zagrebačka 57', 10410, 'ZAGREB', '01 622 6536', 'Fiskalna blagajna'),
+(12, 'Kaufland d.o.o.', 'Avenija Dubrovnik 13', 10040, 'ZAGREB', '01 5546 897', 'Radimo fiskalnu blagajnu'),
+(13, 'King ICT d.o.o.', 'Buzinski prilaz 10', 10000, 'BUZIN', '01 9987 514', 'Outsourcing development'),
+(14, 'Patano d.o.o.', 'Ilica 12', 10000, 'ZAGREB', '01 5235 634', NULL),
+(15, 'Majadero j.d.o.o.', 'Gajeva 3', 10000, 'ZAGREB', '01 3525 531', 'Radimo knjigovodstvo'),
+(16, 'Buxar d.o.o.', 'Palmotićeva 12', 10000, 'ZAGREB', '01 6436 321', 'Implementacija ERP-a'),
+(17, 'A1 d.o.o.', 'Slavonska Avenija 14', 10000, 'ZAGREB', '01 5321 444', 'Mobilni provider'),
+(18, 'Dukat d.d.', 'Slavonska Avenija 32', 10000, 'ZAGREB', '01 3525 444', ''),
+(19, 'Bastan d.o.o.', 'Ilica 118', 10000, 'ZAGREB', '01 1325 532', NULL);
 
 -- --------------------------------------------------------
 
@@ -95,6 +96,7 @@ CREATE TABLE `zaposlenici` (
   `prezime` varchar(32) COLLATE utf8mb4_croatian_ci NOT NULL,
   `email` varchar(20) COLLATE utf8mb4_croatian_ci DEFAULT NULL,
   `kontaktBr` varchar(15) COLLATE utf8mb4_croatian_ci DEFAULT NULL,
+  `napomena` text COLLATE utf8mb4_croatian_ci DEFAULT NULL,
   `poduzeceId` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_croatian_ci;
 
@@ -102,27 +104,28 @@ CREATE TABLE `zaposlenici` (
 -- Dumping data for table `zaposlenici`
 --
 
-INSERT INTO `zaposlenici` (`id`, `ime`, `prezime`, `email`, `kontaktBr`, `poduzeceId`) VALUES
-(1, 'Marina', 'Kovačić', 'marinak@ledo.hr', '0981234567', 1),
-(2, 'Ivan', 'Horvat', 'ivanh@ledo.hr', '0982345678', 1),
-(3, 'Anica', 'Vučković', 'anav@franck.hr', '0983456777', 4),
-(4, 'Marko', 'Babić', 'markob@jamnica.hr', '0984567890', 2),
-(5, 'Ivan', 'Horvat', 'petrak@kras.hr', '0985678901', 3),
-(6, 'Pero', 'Peric', 'lukan@kras.hr', '0986789012', 3),
-(7, 'Karlo', 'Petrović', 'karlop@altis.hr', '0997894561', 4),
-(8, 'Matija', 'Maljević', 'matijam@batis.hr', '098534543', 4),
-(9, 'Petar', 'Živković', 'petarz@gmail.com', '0999876541', 5),
-(10, 'Bojan', 'Jurić', 'bojan@jamnica.hr', '0986547897', 5),
-(11, 'Domagoj', 'Grgić', 'domagojg@jamnica.hr', '0995467897', 6),
-(12, 'Zoran', 'Pavlović', 'zoranp@kaufland.hr', '0951234654', 12),
-(13, 'Ivan', 'Pavlović', 'ivanp@kaufland.hr', '098754134', 7),
-(14, 'Goran', 'Horvat', 'goranh@remaris.hr', '0986348854', 7),
-(15, 'Marija', 'Lac', 'marijal@prahir.hr', '0997645154', 8),
-(16, 'Ivan', 'Horvat', 'berislavi@zaba.hr', '0956478548', 8),
-(17, 'Marko', 'Horvatović', 'aante@a1.hr', '0973353123', 17),
-(18, 'Marko', 'Babić', 'mmirko@a1.hr', '0985325235', 17),
-(19, 'Ivan', 'Horvat', 'ihorvat@gmail.com', '098532973', 9),
-(20, 'Ivan', 'Horvat', 'ihor@gmail.com', '0983726382', 2);
+INSERT INTO `zaposlenici` (`id`, `ime`, `prezime`, `email`, `kontaktBr`, `napomena`, `poduzeceId`) VALUES
+(1, 'Marina', 'Kovačić', 'marinak@ledo.hr', '0981234567', NULL, 1),
+(2, 'Ivan', 'Horvat', 'ivanh@ledo.hr', '0982345678', NULL, 1),
+(3, 'Anica', 'Vučković', 'anav@franck.hr', '0983456777', NULL, 4),
+(4, 'Marko', 'Babić', 'markob@jamnica.hr', '0984567890', NULL, 2),
+(5, 'Ivan', 'Horvat', 'petrak@kras.hr', '0985678901', NULL, 3),
+(6, 'Pero', 'Peric', 'lukan@kras.hr', '0986789012', NULL, 3),
+(7, 'Karlo', 'Petrović', 'karlop@altis.hr', '0997894561', 'Računovodstvo', 6),
+(8, 'Matija', 'Maljević', 'matijam@franck.hr', '098534543', '', 4),
+(9, 'Petar', 'Živković', 'petarz@zaba.com', '0999876541', '', 5),
+(10, 'Bojan', 'Jurić', 'bojan@zaba.hr', '0986547897', '', 5),
+(11, 'Domagoj', 'Grgić', 'domagojg@altis.hr', '0995467897', 'Direktor', 6),
+(12, 'Zoran', 'Pavlović', 'zoranp@kaufland.hr', '0951234654', NULL, 12),
+(13, 'Ivan', 'Pavlović', 'ivanp@remaris.hr', '098754134', '', 7),
+(14, 'Goran', 'Horvat', 'goranh@remaris.hr', '0986348854', NULL, 7),
+(15, 'Marija', 'Lac', 'marijal@matino.hr', '0997645154', '', 8),
+(16, 'Ivan', 'Horvat', 'berislavi@matino.hr', '0956478548', '', 8),
+(17, 'Marko', 'Horvatović', 'aante@a1.hr', '0973353123', 'Tehnička podrška', 17),
+(18, 'Marko', 'Babić', 'mmirko@a1.hr', '0985325235', 'Voditelj prodaje', 17),
+(19, 'Ivan', 'Horvat', 'ihorvat@batis.com', '098532973', 'Voditelj uredskog materijala', 9),
+(20, 'Ivan', 'Horvat', 'ihor@jamnica.hr', '0983726382', '', 2),
+(21, 'Mario', 'Penezić', 'mpenezic@bastan.hr', '095325236', 'Marketing', 19);
 
 --
 -- Indexes for dumped tables
@@ -168,7 +171,7 @@ ALTER TABLE `poduzeca`
 -- AUTO_INCREMENT for table `zaposlenici`
 --
 ALTER TABLE `zaposlenici`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Constraints for dumped tables

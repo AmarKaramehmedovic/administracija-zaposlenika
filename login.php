@@ -16,7 +16,6 @@
 <body class="main-login" style="text-align:center;">
 	<div class="wrapper-login">
 		<?php
-			session_start();
 			if(isset($_SESSION["loggedIn"])){
 				if($_SESSION["loggedIn"] == true){
 					header("Location: ../administracija-zaposlenika");
@@ -49,6 +48,7 @@
 						$dozvola = $row["dozvola"];
 						$username = $row["korisnicko_ime"];
 							
+						session_start();
 						$_SESSION["loggedIn"] = true;
 						$_SESSION["username"] = $username;
 						$_SESSION["dozvola"] = $dozvola;
