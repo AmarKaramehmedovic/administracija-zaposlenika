@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2022 at 04:02 PM
+-- Generation Time: Sep 19, 2022 at 07:05 PM
 -- Server version: 10.4.19-MariaDB
 -- PHP Version: 7.4.19
 
@@ -77,7 +77,7 @@ INSERT INTO `poduzeca` (`id`, `nazivPoduzeca`, `adresa`, `postBr`, `mjesto`, `ko
 (11, 'Prahir d.o.o.', 'Zagrebačka 57', 10410, 'ZAGREB', '01 622 6536', 'Fiskalna blagajna'),
 (12, 'Kaufland d.o.o.', 'Avenija Dubrovnik 13', 10040, 'ZAGREB', '01 5546 897', 'Radimo fiskalnu blagajnu'),
 (13, 'King ICT d.o.o.', 'Buzinski prilaz 10', 10000, 'BUZIN', '01 9987 514', 'Outsourcing development'),
-(14, 'Patano d.o.o.', 'Ilica 12', 10000, 'ZAGREB', '01 5235 634', NULL),
+(14, 'Patano d.o.o.', 'Ilica 12', 10000, 'ZAGREB', '01 5235 634', 'Naručivanje gableca'),
 (15, 'Majadero j.d.o.o.', 'Gajeva 3', 10000, 'ZAGREB', '01 3525 531', 'Radimo knjigovodstvo'),
 (16, 'Buxar d.o.o.', 'Palmotićeva 12', 10000, 'ZAGREB', '01 6436 321', 'Implementacija ERP-a'),
 (17, 'A1 d.o.o.', 'Slavonska Avenija 14', 10000, 'ZAGREB', '01 5321 444', 'Mobilni provider'),
@@ -106,26 +106,41 @@ CREATE TABLE `zaposlenici` (
 
 INSERT INTO `zaposlenici` (`id`, `ime`, `prezime`, `email`, `kontaktBr`, `napomena`, `poduzeceId`) VALUES
 (1, 'Marina', 'Kovačić', 'marinak@ledo.hr', '0981234567', NULL, 1),
-(2, 'Ivan', 'Horvat', 'ivanh@ledo.hr', '0982345678', NULL, 1),
-(3, 'Anica', 'Vučković', 'anav@franck.hr', '0983456777', NULL, 4),
-(4, 'Marko', 'Babić', 'markob@jamnica.hr', '0984567890', NULL, 2),
-(5, 'Ivan', 'Horvat', 'petrak@kras.hr', '0985678901', NULL, 3),
+(2, 'Ivan', 'Horvat', 'ivanh@ledo.hr', '0982345678', 'Logistika', 1),
+(3, 'Anica', 'Vučković', 'anav@franck.hr', '0983456777', 'Administracija', 4),
+(4, 'Marko', 'Babić', 'markob@jamnica.hr', '0984567890', 'Logistika', 2),
+(5, 'Ivan', 'Horvat', 'petrak@kras.hr', '0985678901', 'Marketing', 3),
 (6, 'Pero', 'Peric', 'lukan@kras.hr', '0986789012', NULL, 3),
 (7, 'Karlo', 'Petrović', 'karlop@altis.hr', '0997894561', 'Računovodstvo', 6),
-(8, 'Matija', 'Maljević', 'matijam@franck.hr', '098534543', '', 4),
+(8, 'Matija', 'Maljević', 'matijam@franck.hr', '098534543', 'Prodaja', 4),
 (9, 'Petar', 'Živković', 'petarz@zaba.com', '0999876541', '', 5),
-(10, 'Bojan', 'Jurić', 'bojan@zaba.hr', '0986547897', '', 5),
+(10, 'Bojan', 'Jurić', 'bojan@zaba.hr', '0986547897', 'Osobni asistent', 5),
 (11, 'Domagoj', 'Grgić', 'domagojg@altis.hr', '0995467897', 'Direktor', 6),
 (12, 'Zoran', 'Pavlović', 'zoranp@kaufland.hr', '0951234654', NULL, 12),
-(13, 'Ivan', 'Pavlović', 'ivanp@remaris.hr', '098754134', '', 7),
-(14, 'Goran', 'Horvat', 'goranh@remaris.hr', '0986348854', NULL, 7),
+(13, 'Ivan', 'Pavlović', 'ivanp@remaris.hr', '098754134', 'Developer', 7),
+(14, 'Goran', 'Horvat', 'goranh@remaris.hr', '0986348854', 'Računovodstvo', 7),
 (15, 'Marija', 'Lac', 'marijal@matino.hr', '0997645154', '', 8),
-(16, 'Ivan', 'Horvat', 'berislavi@matino.hr', '0956478548', '', 8),
+(16, 'Berislav', 'Ivanov', 'berislavi@matino.hr', '0956478548', 'Direktor', 8),
 (17, 'Marko', 'Horvatović', 'aante@a1.hr', '0973353123', 'Tehnička podrška', 17),
 (18, 'Marko', 'Babić', 'mmirko@a1.hr', '0985325235', 'Voditelj prodaje', 17),
 (19, 'Ivan', 'Horvat', 'ihorvat@batis.com', '098532973', 'Voditelj uredskog materijala', 9),
 (20, 'Ivan', 'Horvat', 'ihor@jamnica.hr', '0983726382', '', 2),
-(21, 'Mario', 'Penezić', 'mpenezic@bastan.hr', '095325236', 'Marketing', 19);
+(21, 'Mario', 'Penezić', 'mpenezic@bastan.hr', '095325236', 'Marketing', 19),
+(22, 'Goran', 'Marić', 'gmaric@a1.hr', '095032551', 'Developer', 17),
+(23, 'Matea', 'Vlahović', 'mvlaho@buxar.hr', '042431251', '', 16),
+(24, 'Magdalena', 'Perović', 'mperovic@dukat.hr', '42435326', 'Administracija', 18),
+(25, 'Ivan', 'Marović', 'imarovi@dukat.hr', '42436323', 'Logistika', 18),
+(26, 'Ana', 'Carević', 'acerevi@lapano.hr', '0983252361', 'Vlasnik', 10),
+(27, 'Maja', 'Voloder', 'mvolod@kaufland.hr', '09852311', 'Računovodstvo', 12),
+(28, 'Marko', 'Rosandić', 'mrosan@king.hr', '', 'Backend developer', 13),
+(29, 'Valentina', 'Bero', 'vbero@king.hr', '', 'Frontend developer', 13),
+(30, 'Zoran', 'Pauk', 'zpauk@king.hr', '096232316', 'Voditelj projekta', 13),
+(31, 'Mirjana', 'Perić', 'mperic@prahir.hr', '05412512', 'Z centar', 11),
+(32, 'Vlatka', 'Matijević', 'vmatijev@prahir.hr', '04367531', 'Avenue Mall', 11),
+(33, 'Mirko', 'Delić', 'mdelic@patano.hr', '09523491', 'Vlasnik', 14),
+(34, 'Mirko', 'Dalić', 'mdalic@kras.hr', '', '', 3),
+(35, 'Vedran', 'Ledović', 'vledo@ledo.hr', '0953413525', 'Vlasnik', 1),
+(36, 'Maja', 'Galović', 'mgalo@majadero.hr', '0986585345', 'Direktorica/Vlasnik', 15);
 
 --
 -- Indexes for dumped tables
@@ -171,7 +186,7 @@ ALTER TABLE `poduzeca`
 -- AUTO_INCREMENT for table `zaposlenici`
 --
 ALTER TABLE `zaposlenici`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- Constraints for dumped tables
