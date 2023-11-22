@@ -11,6 +11,8 @@ Login podaci za aplikaciju:
 
 * admin login: admin/admin
 
-* urednik login: pero/pero
+* urednik login: goran/goran
+
+* pretplatnik login: marko/marko
 
 *napomena: zaposlenici poduzeća su izmišljeni*
